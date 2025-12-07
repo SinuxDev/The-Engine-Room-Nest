@@ -19,7 +19,11 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json --watchAll=false",
     "lint-staged": "lint-staged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "type-check": "tsc --noEmit",
+    "validate-package": "npx sort-package-json && npm run lint-package",
+    "lint-package": "npmPkgJsonLint .",
+    "validate": "npm run type-check && npm run lint && npm run test"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

@@ -1,5 +1,9 @@
 {
-  "*.{js,ts}": ["eslint --fix", "prettier --write"],
-  "!(*config|*.config).{js,ts}": ["eslint --fix"],
-  "*.{json,md}": ["prettier --write"]
+  "src/**/*.{js,ts}": [
+    "eslint --fix --max-warnings=0",
+    "prettier --write",
+    "jest --bail --findRelatedTests --passWithNoTests"
+  ],
+  "*.{json,md}": ["prettier --write"],
+  "package.json": ["npm run validate-package"]
 }
