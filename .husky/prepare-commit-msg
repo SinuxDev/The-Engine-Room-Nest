@@ -1,8 +1,0 @@
-
-changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
-
-check_run() {
-  echo "$changed_files" | grep -q "$1" && eval "$2"
-}
-
-check_run "package.json\|package-lock.json" "echo '📦 Dependencies changed, running npm install...' && npm install"

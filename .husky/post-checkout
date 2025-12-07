@@ -1,5 +1,0 @@
-if [ "$3" = "1" ]; then
-  echo "🔄 Branch switched, cleaning and reinstalling..."
-  rm -rf dist
-  npm install
-fi
