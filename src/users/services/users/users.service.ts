@@ -4,8 +4,8 @@ import { CreateUserType } from '../../utils/type';
 @Injectable()
 export class UsersService {
   private users = [
-    { id: 1, name: 'John Doe', email: 'john@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
+    { id: 1, name: 'John Doe', email: 'john@example.com', age: 44 },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com', age: 54 },
   ];
 
   getAllUsers(name?: string) {

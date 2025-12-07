@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/CreateUser.dto';
 import { UsersService } from '../services/users/users.service';
+import { ValidateCreateUserPipe } from '../pipes/validate-create-user/validate-create-user.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -27,8 +28,8 @@ export class UsersController {
   }
 
   @Post()
-  @UsePipes(new ValidationPipe({ whitelist: true }))
-  createUser(@Body() userData: CreateUserDto) {
+  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
+  createUser(@Body(ValidateCreateUserPipe) userData: CreateUserDto) {
     return this.userService.createUser(userData);
   }
 }
