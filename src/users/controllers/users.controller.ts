@@ -1,4 +1,14 @@
-import { Controller, Get, Param, Body, Post, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Body,
+  Post,
+  Query,
+  UsePipes,
+  ValidationPipe,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { CreateUserDto } from '../dtos/CreateUser.dto';
 
 @Controller('users')
@@ -19,16 +29,19 @@ export class UsersController {
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: string) {
-    const user = this.users.find((u) => u.id === parseInt(id));
+  getUserById(@Param('id', ParseIntPipe) id: number) {
+    const user = this.users.find((u) => u.id === id);
     return user || { message: 'User not found' };
   }
 
   @Post()
+  @UsePipes(new ValidationPipe({ whitelist: true }))
   createUser(@Body() userData: CreateUserDto) {
+    console.log('Creating user with data:', userData);
     const newUser = {
       id: this.users.length + 1,
       name: userData.name,
+      email: userData.email,
     };
 
     this.users.push(newUser);

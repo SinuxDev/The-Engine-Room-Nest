@@ -11,6 +11,7 @@ async function bootstrap() {
     new ValidationPipe({
       exceptionFactory: (errors) => {
         const messages = errors.map((error) => ({
+          field: error.property,
           error: Object.values(error.constraints || {}).join(', '),
         }));
 
