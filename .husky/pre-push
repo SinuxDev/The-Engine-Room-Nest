@@ -1,3 +1,4 @@
+#!/bin/sh
 echo "🧪 Running unit tests..."
 npm test -- --watchAll=false --passWithNoTests
 
