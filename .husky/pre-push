@@ -1,0 +1,20 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🧪 Running unit tests..."
+npm test -- --watchAll=false --passWithNoTests
+
+if [ $? -ne 0 ]; then
+  echo "❌ Unit tests failed. Push aborted."
+  exit 1
+fi
+
+echo "🚀 Running E2E tests..."
+npm run test:e2e -- --watchAll=false
+
+if [ $? -ne 0 ]; then
+  echo "❌ E2E tests failed. Push aborted."
+  exit 1
+fi
+
+echo "✅ All tests passed! Proceeding with push..."
