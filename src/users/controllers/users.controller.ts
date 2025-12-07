@@ -10,41 +10,25 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/CreateUser.dto';
+import { UsersService } from '../services/users/users.service';
 
 @Controller('users')
 export class UsersController {
-  private users = [
-    { id: 1, name: 'John Doe' },
-    { id: 2, name: 'Jane Smith' },
-  ];
+  constructor(private userService: UsersService) {}
 
   @Get()
   getAllUsers(@Query('name') name?: string) {
-    if (name) {
-      return this.users.filter((user) =>
-        user.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()),
-      );
-    }
-    return this.users;
+    return this.userService.getAllUsers(name);
   }
 
   @Get(':id')
   getUserById(@Param('id', ParseIntPipe) id: number) {
-    const user = this.users.find((u) => u.id === id);
-    return user || { message: 'User not found' };
+    return this.userService.getUserById(id);
   }
 
   @Post()
   @UsePipes(new ValidationPipe({ whitelist: true }))
   createUser(@Body() userData: CreateUserDto) {
-    console.log('Creating user with data:', userData);
-    const newUser = {
-      id: this.users.length + 1,
-      name: userData.name,
-      email: userData.email,
-    };
-
-    this.users.push(newUser);
-    return this.users;
+    return this.userService.createUser(userData);
   }
 }
