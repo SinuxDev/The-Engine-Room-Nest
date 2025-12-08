@@ -14,9 +14,6 @@ export class UsersService {
         user.name.toLowerCase().includes(name.toLowerCase()),
       );
     }
-
-    console.log('usrs');
-
     return this.users;
   }
 
